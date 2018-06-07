@@ -22,6 +22,9 @@ public class Timer implements Runnable {
             while(true) {
                 TimeUnit.SECONDS.sleep(1);
                 second++;
+                if(Thread.interrupted()) {
+                    throw new InterruptedException();
+                }
             }
         } catch(InterruptedException e) {
 
