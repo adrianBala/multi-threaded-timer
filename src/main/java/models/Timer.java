@@ -4,25 +4,27 @@ public class Timer implements Runnable {
 
     private int second;
     private String name;
-    private boolean isAlive;
     private static int timerCount = 0;
     private final int threadId = ++timerCount;
+    private Thread threat;
 
     public Timer(String name) {
         this.name = name;
         this.second = 0;
-        this.isAlive = true;
+        threat = new Thread(this);
+        threat.start();
     }
 
     public Timer(String name, int second) {
         this.name = name;
         this.second = second;
-        this.isAlive = true;
+        threat = new Thread(this);
+        threat.start();
     }
 
     public void run() {
         try {
-            while(isAlive) {
+            while(!threat.isInterrupted()) {
                 TimeUnit.SECONDS.sleep(1);
                 second++;
 
@@ -32,9 +34,8 @@ public class Timer implements Runnable {
         }
     }
 
-    public boolean stop() {
-        isAlive = false;
-        return isAlive;
+    public void stop() {
+        threat.interrupt();
     }
 
     public int getSecond() {

@@ -9,19 +9,19 @@ public class ThreadsContainer {
         if(container.containsKey(name)) {
             int seconds = container.get(name).getSecond();
             Timer timer = new Timer(name, seconds);
-            startNewThread(name, timer);
+            container.put(name, timer);
 
         } else {
             Timer timer = new Timer(name);
-            startNewThread(name, timer);
+            container.put(name, timer);
         }
     }
 
-    private void startNewThread(String name, Timer timer) {
-        Thread thread = new Thread(timer);
-        thread.start();
-        container.put(name, timer);
-    }
+//    private void startNewThread(String name, Timer timer) {
+//        Thread thread = new Thread(timer);
+//        thread.start();
+//        container.put(name, timer);
+//    }
 
     public Map getContainer() {
         return container;
