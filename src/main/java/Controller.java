@@ -1,13 +1,12 @@
-import java.util.Arrays;
-import java.util.Scanner;
+import models.ThreadsContainer;
 
 public class Controller {
 
-    ThreadsContainer container;
-    View view;
+    private ThreadsContainer threadsContainer;
+    private View view;
 
-    public Controller() {
-        container = new ThreadsContainer();
+    Controller() {
+        threadsContainer = new ThreadsContainer();
         view = new View();
     }
 
@@ -39,8 +38,8 @@ public class Controller {
 
     private void stopTread(String[] input) {
         int index = 1;
-        if(input.length > 1 && container.containsKey(input[index])) {
-            container.stop(input[index]);
+        if(input.length > 1 && threadsContainer.containsKey(input[index])) {
+            threadsContainer.stop(input[index]);
         } else {
             view.display("I didn't find this thread");
         }
@@ -48,12 +47,12 @@ public class Controller {
 
     private void check(String[] input) {
         int nameIndex = 1;
-        if(container.isEmpty()) {
+        if(threadsContainer.isEmpty()) {
             view.display("No threads here");
         } else if(input.length == 1) {
-            view.display(container);
-        } else if(container.containsKey(input[nameIndex])) {
-            view.display(container.get(input[nameIndex]));
+            view.display(threadsContainer);
+        } else if(threadsContainer.containsKey(input[nameIndex])) {
+            view.display(threadsContainer.get(input[nameIndex]));
         } else {
             view.display("No threads here!");
         }
@@ -61,8 +60,11 @@ public class Controller {
 
     private void createThread(String[] input) {
         int indexThreadName = 1;
-        container.addThread(input[indexThreadName]);
+        if(input.length < 2) {
+            view.display("You forgot write a name!");
+        } else {
+            threadsContainer.addThread(input[indexThreadName]);
+        }
     }
-
 
 }
