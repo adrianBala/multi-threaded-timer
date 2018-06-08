@@ -1,3 +1,5 @@
+package models;
+
 import java.util.concurrent.TimeUnit;
 
 public class Timer implements Runnable {
@@ -27,7 +29,6 @@ public class Timer implements Runnable {
             while(!threat.isInterrupted()) {
                 TimeUnit.SECONDS.sleep(1);
                 second++;
-
             }
         } catch(InterruptedException e) {
             return;
